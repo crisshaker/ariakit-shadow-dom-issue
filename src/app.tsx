@@ -61,15 +61,12 @@ function SelectMenu() {
             'overflow-x-hidden',
             'z-10 rounded-lg bg-white outline-none',
             'ring-1 ring-sky-800/[0.11]',
-            'shadow-xl shadow-slate-800/[0.07]'
+            'shadow-xl shadow-slate-800/[0.07]',
+            'flex flex-col'
           )}
         >
           <div
-            className={cx(
-              'relative shrink-0',
-
-              'border-b border-b-slate-300'
-            )}
+            className={cx('relative shrink-0', 'border-b border-b-slate-300')}
           >
             <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-700">
               <Search size={12} />
@@ -85,11 +82,13 @@ function SelectMenu() {
             />
           </div>
 
-          <ComboboxList>
+          <ComboboxList className="flex min-h-0 grow flex-col overflow-y-auto overscroll-y-contain">
             {matches.map((item) => (
               <ComboboxItem
+                focusOnHover
+                setValueOnClick={false}
                 className={cx(
-                  'flex h-[38px] w-full items-center gap-2 px-4 text-[11px] font-medium text-slate-700',
+                  'flex shrink-0 h-[38px] w-full items-center gap-2 px-4 text-[11px] font-medium text-slate-700',
                   'border-b border-b-slate-100 outline-none last:border-none',
                   'data-[active-item]:bg-slate-100',
                   'aria-disabled:opacity-50'
