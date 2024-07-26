@@ -13,6 +13,7 @@
     "@ariakit/react": "^0.4.7",
     "cva": "^1.0.0-beta.1",
     "lucide-react": "^0.416.0",
+    "match-sorter": "^6.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

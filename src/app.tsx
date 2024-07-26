@@ -9,12 +9,32 @@ import {
 } from '@ariakit/react';
 import { cx } from 'cva';
 import { FolderClosed, Search } from 'lucide-react';
+import { matchSorter } from 'match-sorter';
+import { useMemo, useState } from 'react';
 
-const items = ['One', 'Two', 'Three', 'Four', 'Five'];
+const items = [
+  { name: 'One', id: 1 },
+  { name: 'Two', id: 2 },
+  { name: 'Three', id: 3 },
+  { name: 'Four', id: 4 },
+  { name: 'Five', id: 5 },
+];
 
 function SelectMenu() {
+  const [value, setValue] = useState('');
+
+  const matches = useMemo(() => {
+    const processedValue = value.trim();
+    if (processedValue === '') return items;
+
+    return matchSorter(items, processedValue, {
+      keys: ['name'],
+      sorter: (rankedItems) => rankedItems,
+    });
+  }, [value]);
+
   return (
-    <ComboboxProvider>
+    <ComboboxProvider value={value} setValue={setValue}>
       <MenuProvider>
         <MenuButton
           className={cx(
@@ -66,7 +86,7 @@ function SelectMenu() {
           </div>
 
           <ComboboxList>
-            {items.map((item) => (
+            {matches.map((item) => (
               <ComboboxItem
                 className={cx(
                   'flex h-[38px] w-full items-center gap-2 px-4 text-[11px] font-medium text-slate-700',
@@ -74,10 +94,10 @@ function SelectMenu() {
                   'data-[active-item]:bg-slate-100',
                   'aria-disabled:opacity-50'
                 )}
-                value={item}
-                key={item}
+                value={item.id.toString()}
+                key={item.id}
               >
-                {item}
+                {item.name}
               </ComboboxItem>
             ))}
           </ComboboxList>
